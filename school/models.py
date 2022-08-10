@@ -27,20 +27,47 @@ class StudentClass(models.Model):
         return self.class_name
 
 class Parent(models.Model):
+    TITLE_CHOICES = [
+        ("Dr", "Dr"),
+        ("Mr", "Mr"),
+        ("Mrs", "Mrs"),
+        ("Miss", "Miss"),
+        ("Prof", "Prof"),
+        ("Madam", "Madam"),
+    ]
     id_no = models.CharField(max_length=255)
+    title = models.CharField(max_length=10, choices=TITLE_CHOICES)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return self.title + " " + self.first_name + " " + self.last_name
 
 class Student(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     admission_no = models.CharField(max_length=255)
-    parent = models.ManyToManyField(Parent, on_delete=models.CASCADE)
+    parent = models.ManyToManyField(Parent)
     in_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.first_name + " " + self.last_name
 
+class Teacher(models.Model):
+    TITLE_CHOICES = [
+        ("Dr", "Dr"),
+        ("Mr", "Mr"),
+        ("Mrs", "Mrs"),
+        ("Miss", "Miss"),
+        ("Prof", "Prof"),
+        ("Madam", "Madam"),
+    ]
+    id_no = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    title = models.CharField(max_length=10, choices=TITLE_CHOICES)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    teaching = models.ManyToManyField(StudentClass)
+
+    def __str__(self):
+        return self.title + " " + self.first_name + " " + self.last_name
