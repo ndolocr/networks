@@ -15,3 +15,15 @@ class County(models.Model):
 class School(models.Model):
     school_name = models.CharField(max_length=255, null=False)
     county = models.ForeignKey(County, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.school_name
+
+class StudentClass(models.Model):
+    class_name = models.CharField(max_length=255)
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.class_name
+
+        
