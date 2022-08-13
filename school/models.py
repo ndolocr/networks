@@ -23,7 +23,7 @@ class StudentClass(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.class_name
+        return self.class_name + " - " + self.school.school_name
 
 class Parent(models.Model):
     TITLE_CHOICES = [
